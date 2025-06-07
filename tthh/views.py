@@ -268,20 +268,30 @@ def crear_evento(request):
     return render(request, 'eventos/crear_evento.html', {'form': form, 'funcionarios': funcionarios})
 
 
-
 def editar_evento(request, id_evento):
     evento = get_object_or_404(EventoLaboral, pk=id_evento)
+
     if request.method == 'POST':
-        form = EventoLaboralForm(request.POST, instance=evento)
+        form = EventoLaboralForm(request.POST, request.FILES, instance=evento)
         if form.is_valid():
+            if request.FILES.get('url_resolucion_evento'):
+            # Solo eliminar si viene uno nuevo
+                if evento.url_resolucion_evento:
+                    evento.url_resolucion_evento.delete()
+
             form.save()
             messages.success(request, "Evento actualizado correctamente.")
-            return redirect('lista_eventos_funcionario')
+            return redirect('lista_eventos')
     else:
         form = EventoLaboralForm(instance=evento)
-    
+
     funcionarios = PerfilFuncionario.objects.all()
-    return render(request, 'eventos/editar_evento.html', {'form': form, 'funcionarios': funcionarios})
+    return render(request, 'eventos/editar_evento.html', {
+        'form': form,
+        'funcionarios': funcionarios
+    })
+
+
 
     
 def eliminar_evento(request, id_evento):
