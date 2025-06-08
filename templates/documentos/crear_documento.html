@@ -6,23 +6,42 @@
     <div class="card shadow-lg p-4 bg-dark text-white rounded-4">
         <h3 class="mb-4">Registro de Documento</h3>
 
+        {% if not funcionarios_exist %}
+          <div class="alert alert-warning mt-3">
+            <i class="fas fa-exclamation-triangle"></i>
+            No hay funcionarios registrados.
+            <a href="{% url 'crear_funcionario' %}" class="btn btn-sm btn-outline-light ms-2">
+                Registrar funcionario
+            </a>
+          </div>
+        {% endif %}
+
         
 
         <form method="post" enctype="multipart/form-data" class="row g-3">
             {% csrf_token %}
 
-            <!-- Cédula -->
-            <div class="col-md-6">
-                <label for="id_cedula" class="form-label">
-                    <i class="fas fa-id-card me-1"></i> Cédula del Funcionario
-                </label>
-                <div class="input-group">
-                    <span class="input-group-text bg-secondary text-white">
-                        <i class="fas fa-id-card"></i>
-                    </span>
-                    {{ form.cedula }}
-                </div>
-            </div>
+            <!-- Funcionario -->
+<div class="col-md-6">
+    <label for="id_id_funcionario" class="form-label">
+        <i class="fas fa-user-tie me-1"></i> Funcionario
+    </label>
+    <!-- MENSAJE para registro si no aparece el funcionario -->
+    <div class="alert alert-info py-2 mb-2">
+        <i class="fas fa-info-circle"></i>
+        Si el nombre del funcionario <strong>no aparece en la lista</strong>,
+        <a href="{% url 'crear_funcionario' %}" class="btn btn-sm btn-dark ms-1">
+            Regístrelo aquí
+        </a>
+    </div>
+    <div class="input-group">
+        <span class="input-group-text bg-secondary text-white">
+            <i class="fas fa-user-tie"></i>
+        </span>
+        {{ form.id_funcionario }}
+    </div>
+</div>
+
 
             <!-- Tipo de Documento -->
             <div class="col-md-6">
@@ -101,7 +120,7 @@
     <div id="toastSuccess" class="toast text-white bg-success show" role="alert">
         <div class="d-flex">
             <div class="toast-body">
-                <i class="fas fa-check-circle me-2"></i> Documento registrado correctamente.
+                <i class="fas fa-check-circle me-2"></i> 
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
         </div>

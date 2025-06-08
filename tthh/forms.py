@@ -35,12 +35,18 @@ class TipoDocumentoForm(forms.ModelForm):
 from django import forms
 from .models import DocumentoFuncionario, PerfilFuncionario
 
+from .models import PerfilFuncionario
+
 class DocumentoFuncionarioForm(forms.ModelForm):
-    cedula = forms.CharField(label="Cédula del Funcionario", max_length=45, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    id_funcionario = forms.ModelChoiceField(
+        queryset=PerfilFuncionario.objects.all(),
+        label="Funcionario",
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = DocumentoFuncionario
-        fields = ['cedula', 'id_tipo_documento', 'fecha_presentacion', 'archivo', 'estado']
+        fields = ['id_funcionario', 'id_tipo_documento', 'fecha_presentacion', 'archivo', 'estado']
         widgets = {
             'id_tipo_documento': forms.Select(attrs={'class': 'form-control'}),
             'fecha_presentacion': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),

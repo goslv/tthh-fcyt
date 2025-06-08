@@ -125,32 +125,16 @@ def crear_documento(request):
     if request.method == 'POST':
         form = DocumentoFuncionarioForm(request.POST, request.FILES)
         if form.is_valid():
-            cedula = form.cleaned_data['cedula']
-
-            try:
-                funcionario = PerfilFuncionario.objects.get(cedula=cedula)
-            except PerfilFuncionario.DoesNotExist:
-                messages.error(request, "Funcionario no registrado. Por favor verifique la cédula.")
-                return render(request, 'documentos/crear_documento.html', {
-                    'form': form,
-                    'mostrar_toast': False
-                })
-
-            documento = form.save(commit=False)
-            documento.id_funcionario = funcionario
-            documento.save()
-            messages.success(request, "Documento guardado correctamente.")
+            form.save()
+            messages.success(request, "Documento registrado correctamente.")
             return render(request, 'documentos/crear_documento.html', {
                 'form': DocumentoFuncionarioForm(),
                 'mostrar_toast': True
             })
-
     else:
         form = DocumentoFuncionarioForm()
-
-    return render(request, 'documentos/crear_documento.html', {
-        'form': form
-    })
+    
+    return render(request, 'documentos/crear_documento.html', {'form': form, 'mostrar_toast': mostrar_toast})
 
 from .models import DocumentoFuncionario, TipoDocumento
 
@@ -426,15 +410,12 @@ from .forms import DocumentoFuncionarioForm
 from .models import PerfilFuncionario, DocumentoFuncionario
 
 def crear_documento(request):
+    funcionarios_exist = PerfilFuncionario.objects.exists()
+
     if request.method == 'POST':
         form = DocumentoFuncionarioForm(request.POST, request.FILES)
         if form.is_valid():
-            cedula = form.cleaned_data['cedula']
-            try:
-                funcionario = PerfilFuncionario.objects.get(cedula=cedula)
-            except PerfilFuncionario.DoesNotExist:
-                messages.error(request, "El funcionario con cédula ingresada no existe. Por favor registre primero al funcionario.")
-                return redirect('crear_funcionario')  # Ajustá si tu vista se llama distinto
+            funcionario = form.cleaned_data['id_funcionario']
 
             documento = form.save(commit=False)
             documento.id_funcionario = funcionario
@@ -444,5 +425,9 @@ def crear_documento(request):
     else:
         form = DocumentoFuncionarioForm()
 
-    return render(request, 'documentos/crear_documento.html', {'form': form})
+    return render(request, 'documentos/crear_documento.html', {
+        'form': form,
+        'funcionarios_exist': funcionarios_exist
+    })
+
 
