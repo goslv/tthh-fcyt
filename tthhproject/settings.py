@@ -35,7 +35,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+<<<<<<< HEAD:proyectdjango/settings.py
+    'django.middleware.LoginRequiredMiddleware',
+=======
     'tthhproject.middleware.LoginRequiredMiddleware',  
+>>>>>>> jgomez-branch:tthhproject/settings.py
 ]
 ROOT_URLCONF = 'tthhproject.urls'
 TEMPLATES = [
@@ -88,8 +92,13 @@ LOGIN_URL = 'login'  # URL completa comenzando con barra
 LOGOUT_REDIRECT_URL = 'login'  # URL completa comenzando con barra
 LOGIN_REDIRECT_URL = 'menu_inicio'
 
+<<<<<<< HEAD:proyectdjango/settings.py
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'menu_inicio'
+=======
 #SESSION_COOKIE_SECURE = True (Solo si se usa HTTPS)
 #CRF_COOKIE_SECURE = True  (Solo si se usa HTTPS)
+>>>>>>> jgomez-branch:tthhproject/settings.py
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
