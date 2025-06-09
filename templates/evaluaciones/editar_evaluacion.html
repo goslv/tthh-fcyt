@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Editar Evaluación | TH-FCYT{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100 px-3">
+    <div class="card create-card shadow-lg animate-fade-in">
+        <div class="card-header bg-create-header text-center">
+            <h4 class="mb-0 text-white">Editar Evaluación</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" class="row g-3">
+                {% csrf_token %}
+
+                <div class="col-md-6">
+                    <label class="form-label text-light">Funcionario</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user-tie text-white"></i></span>
+                        {{ form.id_funcionario|add_class:"form-control form-control-dark form-select" }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-light">Tipo de Evaluación</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-file-alt text-white"></i></span>
+                        {{ form.tipo_evaluacion|add_class:"form-control form-control-dark" }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-light">Resultado</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-chart-line text-white"></i></span>
+                        {{ form.resultado|add_class:"form-control form-control-dark" }}
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-light">Fecha</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-calendar-alt text-white"></i></span>
+                        {{ form.fecha|add_class:"form-control form-control-dark" }}
+                    </div>
+                </div>
+
+                <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-gradient me-2">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a href="{% url 'lista_evaluaciones' %}" class="btn btn-gradient-outline">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    
+    input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+    }
+    .create-card {
+        max-width: 720px;
+        width: 100%;
+        border-radius: 1rem;
+        background: rgba(0, 0, 0, 0.9);
+        color: #f0f0f0;
+    }
+
+    .form-control-dark,
+    .form-select.form-control-dark {
+        background-color: #111 !important;
+        color: #e0e0e0 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .form-control-dark:focus {
+        background-color: #1a1a1a;
+        color: #fff;
+        box-shadow: 0 0 0 0.2rem rgba(69, 123, 157, 0.5);
+        border-color: #457b9d;
+    }
+
+    .input-group-text {
+        background-color: #1c1c1c;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-gradient {
+        background: linear-gradient(135deg, #1e1e1e, #292929);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.2rem;
+        border: none;
+    }
+
+    .btn-gradient-outline {
+        background: transparent;
+        color: #fff;
+        border: 1px solid #fff;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.2rem;
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(135deg, #292929, #1e1e1e);
+    }
+
+    .btn-gradient-outline:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+</style>
+{% endblock %}

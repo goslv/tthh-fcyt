@@ -32,14 +32,14 @@ urlpatterns = [
     # Evaluaciones
     path('evaluaciones/', views.lista_evaluaciones, name='lista_evaluaciones'),
     path('evaluaciones/crear/', views.crear_evaluacion, name='crear_evaluacion'),
-    path('evaluaciones/editar/<int:id>/', views.editar_evaluacion, name='editar_evaluacion'),
-    path('evaluaciones/eliminar/<int:id>/', views.eliminar_evaluacion, name='eliminar_evaluacion'),
+    path('evaluaciones/editar/<int:id_evaluacion>/', views.editar_evaluacion, name='editar_evaluacion'),
+    path('evaluaciones/eliminar/<int:id_evaluacion>/', views.eliminar_evaluacion, name='eliminar_evaluacion'),
 
     # Beneficios
     path('beneficios/', views.lista_beneficios, name='lista_beneficios'),
     path('beneficios/crear/', views.crear_beneficio, name='crear_beneficio'),
     path('beneficios/editar/<int:id_beneficio>/', views.editar_beneficio, name='editar_beneficio'),
-    path('beneficios/eliminar/<int:id>/', views.eliminar_beneficio, name='eliminar_beneficio'),
+    path('beneficios/eliminar/<int:id_beneficio>/', views.eliminar_beneficio, name='eliminar_beneficio'),
 
     # Eventos Laborales
     path('eventos/', views.lista_eventos, name='lista_eventos'),

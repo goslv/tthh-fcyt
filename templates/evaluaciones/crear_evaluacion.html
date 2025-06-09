@@ -1,67 +1,47 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 
-{% block title %}Registrar Beneficio | TH-FCYT{% endblock %}
+{% block title %}Registrar Evaluación | TH-FCYT{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-center min-vh-100 px-3">
   <div class="card create-card shadow-lg animate-fade-in">
     <div class="card-header bg-create-header text-center">
-      <h4 class="mb-0 text-white">Registro de Beneficio</h4>
+      <h4 class="mb-0 text-white">Registro de Evaluación</h4>
     </div>
     <div class="card-body">
-      <form method="post" enctype="multipart/form-data" class="row g-3">
+      <form method="POST" class="row g-3">
         {% csrf_token %}
-
-        <div class="col-md-6">
-          <label class="form-label text-white">Tipo de Beneficio</label>
-          <div class="input-group">
-            <span class="input-group-text bg-dark text-white"><i class="fas fa-gift"></i></span>
-            <input type="text" name="tipo_beneficio" class="form-control form-control-dark" required>
-          </div>
-        </div>
 
         <div class="col-md-6">
           <label class="form-label text-white">Funcionario</label>
           <div class="input-group">
-            <span class="input-group-text bg-dark text-white"><i class="fas fa-user"></i></span>
-            <select name="id_funcionario" class="form-select form-control-dark" required>
-              {% for funcionario in funcionarios %}
-                <option value="{{ funcionario.id_funcionario }}">{{ funcionario.nombre }} {{ funcionario.apellido }}</option>
-              {% endfor %}
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <label class="form-label text-white">Descripción</label>
-          <div class="input-group">
-            <span class="input-group-text bg-dark text-white"><i class="fas fa-align-left"></i></span>
-            <textarea name="description" class="form-control form-control-dark" rows="3" required></textarea>
+            <span class="input-group-text bg-dark text-white"><i class="fas fa-user-tie"></i></span>
+            {{ form.id_funcionario|add_class:"form-control-dark form-select" }}
           </div>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label text-white">Fecha de Inicio</label>
+          <label class="form-label text-white">Tipo de Evaluación</label>
           <div class="input-group">
-            <span class="input-group-text bg-dark text-white"><i class="fas fa-calendar-alt"></i></span>
-            <input type="date" name="fecha_inicio" class="form-control form-control-dark" required>
+            <span class="input-group-text bg-dark text-white"><i class="fas fa-file-alt"></i></span>
+            {{ form.tipo_evaluacion|add_class:"form-control-dark" }}
           </div>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label text-white">Fecha de Fin</label>
+          <label class="form-label text-white">Resultado</label>
           <div class="input-group">
-            <span class="input-group-text bg-dark text-white"><i class="fas fa-calendar-alt"></i></span>
-            <input type="date" name="fecha_fin" class="form-control form-control-dark" required>
+            <span class="input-group-text bg-dark text-white"><i class="fas fa-chart-line"></i></span>
+            {{ form.resultado|add_class:"form-control-dark" }}
           </div>
         </div>
 
-        <div class="col-md-12">
-          <label class="form-label text-white">Archivo de Resolución</label>
+        <div class="col-md-6">
+          <label class="form-label text-white">Fecha</label>
           <div class="input-group">
-            <span class="input-group-text bg-dark text-white"><i class="fas fa-file-upload"></i></span>
-            <input type="file" name="url_resolucion_beneficios" class="form-control form-control-dark" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <span class="input-group-text bg-dark text-white"><i class="fas fa-calendar-alt"></i></span>
+            {{ form.fecha|add_class:"form-control-dark" }}
           </div>
         </div>
 
@@ -69,7 +49,7 @@
           <button type="submit" class="btn btn-gradient me-2">
             <i class="fas fa-save"></i> Guardar
           </button>
-          <a href="{% url 'lista_beneficios' %}" class="btn btn-gradient-outline">
+          <a href="{% url 'lista_evaluaciones' %}" class="btn btn-gradient-outline">
             <i class="fas fa-arrow-left"></i> Cancelar
           </a>
         </div>
@@ -79,11 +59,11 @@
 </div>
 
 <style>
-  
-  input[type="date"]::-webkit-calendar-picker-indicator {
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
     filter: brightness(0) invert(1);
     opacity: 1;
-  }
+}   
 
   .create-card {
     background: #000;

@@ -188,21 +188,27 @@ def crear_evaluacion(request):
             form.save()
             messages.success(request, "Evaluación registrada correctamente.")
             return redirect('lista_evaluaciones')
-        else:
-            form = EvaluacionForm()
-        return render(request, 'evaluaciones/crear_evaluacion.html', {'form': form})
+
+    else:
+        form = EvaluacionForm()
+
+    return render(request, 'evaluaciones/crear_evaluacion.html', {'form': form})
+
     
 def editar_evaluacion(request, id_evaluacion):
     evaluacion = get_object_or_404(Evaluacion, pk=id_evaluacion)
+
     if request.method == 'POST':
         form = EvaluacionForm(request.POST, instance=evaluacion)
         if form.is_valid():
             form.save()
             messages.success(request, "Evaluación actualizada correctamente.")
             return redirect('lista_evaluaciones')
-        else:
-            form = EvaluacionForm(instance=evaluacion)
-        return render(request, 'evaluaciones/editar_evaluacion.html', {'form': form})
+    else:
+        form = EvaluacionForm(instance=evaluacion)
+
+    return render(request, 'evaluaciones/editar_evaluacion.html', {'form': form})
+
     
 def eliminar_evaluacion(request, id_evaluacion):
     evaluacion = get_object_or_404(Evaluacion, pk=id_evaluacion)
@@ -229,25 +235,28 @@ def crear_beneficio(request):
     funcionarios = PerfilFuncionario.objects.all()
     return render(request, 'beneficios/crear_beneficio.html', {'form': form, 'funcionarios': funcionarios})
 
-
     
 def editar_beneficio(request, id_beneficio):
     beneficio = get_object_or_404(BeneficioFuncionario, pk=id_beneficio)
+    
     if request.method == 'POST':
         form = BeneficioFuncionarioForm(request.POST, instance=beneficio)
         if form.is_valid():
             form.save()
             messages.success(request, "Beneficio actualizado correctamente.")
             return redirect('lista_beneficios')
-        else:
-            form = BeneficioFuncionarioForm(instance=beneficio)
-        return render(request, 'beneficios/editar_beneficio.html', {'form': form})
+    else:
+        form = BeneficioFuncionarioForm(instance=beneficio)
+
+    return render(request, 'beneficios/editar_beneficio.html', {'form': form})
+
     
 def eliminar_beneficio(request, id_beneficio):
     beneficio = get_object_or_404(BeneficioFuncionario, pk=id_beneficio)
     beneficio.delete()
     messages.success(request, "Beneficio eliminado correctamente.")
     return redirect('lista_beneficios')
+
 
 # ------------------------ EVENTOS FUNCIONARIOS ------------------------
 def lista_eventos(request):
@@ -290,9 +299,6 @@ def editar_evento(request, id_evento):
         'form': form,
         'funcionarios': funcionarios
     })
-
-
-
     
 def eliminar_evento(request, id_evento):
     evento = get_object_or_404(EventoLaboral, pk=id_evento)
